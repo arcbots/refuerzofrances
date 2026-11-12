@@ -1,1 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#082957">
+  <meta name="description" content="Página personal de Junior Rodrigo Arce Campos. Docencia, informática educativa, programación y diseño para impresión 3D.">
+  <title>Junior Rodrigo Arce Campos | Educación y Tecnología</title>
 
+  <style>
+    :root {
+      --azul: #0866e9;
+      --azul-oscuro: #082957;
+      --rojo: #e83145;
+      --blanco: #ffffff;
+      --fondo: #f3f7fc;
+      --texto: #19334f;
+      --gris: #576b82;
+      --borde: #dce5f0;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--texto);
+      background: var(--blanco);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    a:focus-visible {
+      outline: 3px solid var(--rojo);
+      outline-offset: 6px;
+    }
+
+    .contenedor {
+      width: min(1120px, 90%);
+      margin-inline: auto;
+    }
+
+    /* NAVEGACIÓN */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, .96);
+      border-bottom: 1px solid var(--borde);
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .marca {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      font-weight: 800;
+      color: var(--azul-oscuro);
+    }
+
+    .monograma {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      border-radius: 13px;
+      color: white;
+      background: var(--azul);
+      box-shadow: 4px 4px 0 var(--rojo);
+      font-size: 17px;
+    }
+
+    .enlaces {
+      display: flex;
+      gap: 25px;
+    }
+
+    .enlaces a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .enlaces a:hover { color: var(--azul); }
+
+    /* BANNER */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      color: white;
+      background: var(--azul-oscuro);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 85% 20%, #1676ef66, transparent 42%),
+        linear-gradient(135deg, #061a3a, #0a3977);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: .16;
+      background-image:
+        linear-gradient(#ffffff40 1px, transparent 1px),
+        linear-gradient(90deg, #ffffff40 1px, transparent 1px);
+      background-size: 52px 52px;
+      animation: moverCuadricula 20s linear infinite;
+    }
+
+    .hero-interior {
+      min-height: 640px;
+      padding-block: 85px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+      gap: 65px;
+    }
+
+    .etiqueta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 14px;
+      border: 1px solid #ffffff40;
+      border-radius: 30px;
+      background: #ffffff0c;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .punto {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #77c9ff;
+      box-shadow: 0 0 15px #77c9ff;
+    }
+
+    h1 {
+      margin: 24px 0 18px;
+      font-size: clamp(40px, 5vw, 65px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+    }
+
+    h1 span { color: #83c5ff; }
+
+    .hero-descripcion {
+      max-width: 540px;
+      color: #d0def0;
+      font-size: 18px;
+    }
+
+    .botones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .boton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 49px;
+      padding: 11px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform .2s, background .2s;
+    }
+
+    .boton:hover { transform: translateY(-3px); }
+    .boton-rojo { background: var(--rojo); color: white; }
+    .boton-rojo:hover { background: #ca2036; }
+
+    .boton-borde {
+      border: 1px solid #ffffff55;
+      background: #ffffff08;
+      color: white;
+    }
+
+    .boton-borde:hover { background: #ffffff18; }
+
+    /* ILUSTRACIÓN ANIMADA */
+    .visual {
+      position: relative;
+      min-height: 370px;
+      display: grid;
+      place-items: center;
+    }
+
+    .orbita {
+      position: absolute;
+      width: 310px;
+      height: 310px;
+      border: 1px solid #8fcaff40;
+      border-radius: 50%;
+      animation: girar 35s linear infinite;
+    }
+
+    .orbita::before {
+      content: "";
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--rojo);
+      box-shadow: 0 0 25px #e8314590;
+    }
+
+    .orbita-secundaria {
+      width: 235px;
+      height: 235px;
+      border-style: dashed;
+      animation-direction: reverse;
+    }
+
+    .escena {
+      width: 115px;
+      height: 115px;
+      perspective: 650px;
+    }
+
+    .cubo {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      animation: cubo3d 15s linear infinite;
+    }
+
+    .cara {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      border: 2px solid #b8dcff;
+      background: #0866e9b8;
+      color: white;
+      font-weight: 800;
+      font-size: 28px;
+      backface-visibility: visible;
+    }
+
+    .frente { transform: translateZ(57.5px); }
+    .atras { transform: rotateY(180deg) translateZ(57.5px); }
+    .derecha { transform: rotateY(90deg) translateZ(57.5px); }
+    .izquierda { transform: rotateY(-90deg) translateZ(57.5px); }
+    .arriba { transform: rotateX(90deg) translateZ(57.5px); }
+    .abajo { transform: rotateX(-90deg) translateZ(57.5px); }
+
+    .tarjeta-flotante {
+      position: absolute;
+      padding: 12px 17px;
+      border: 1px solid #ffffff30;
+      border-radius: 13px;
+      background: #10386a;
+      box-shadow: 0 15px 35px #00000025;
+      font-size: 13px;
+      font-weight: 600;
+      animation: flotar 5s ease-in-out infinite;
+    }
+
+    .flotante-uno { top: 12px; left: 0; }
+    .flotante-dos { top: 150px; right: -10px; animation-delay: -2s; }
+    .flotante-tres { bottom: 5px; left: 20px; animation-delay: -3s; }
+
+    .tarjeta-flotante span {
+      color: #83c5ff;
+      margin-right: 7px;
+    }
+
+    .franja {
+      height: 7px;
+      background: linear-gradient(
+        90deg,
+        var(--azul) 0 40%,
+        white 40% 60%,
+        var(--rojo) 60% 100%
+      );
+    }
+
+    /* SECCIONES */
+    section.contenido { padding-block: 85px; }
+    .fondo-suave { background: var(--fondo); }
+
+    .titulo-pequeno {
+      color: var(--azul);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 9px 0 20px;
+      color: var(--azul-oscuro);
+      font-size: clamp(29px, 4vw, 40px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+    }
+
+    .introduccion {
+      max-width: 650px;
+      margin-bottom: 35px;
+      color: var(--gris);
+    }
+
+    .sobre-mi {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+      gap: 65px;
+    }
+
+    .sobre-mi p { color: var(--gris); }
+
+    .estadisticas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .dato {
+      padding: 30px 20px;
+      border: 1px solid var(--borde);
+      border-radius: 18px;
+      background: white;
+      text-align: center;
+    }
+
+    .dato strong {
+      display: block;
+      color: var(--azul);
+      font-size: 46px;
+      line-height: 1.2;
+      letter-spacing: -2px;
+    }
+
+    .dato span {
+      display: block;
+      margin-top: 8px;
+      color: var(--gris);
+      font-size: 13px;
+    }
+
+    .dato.destacado {
+      grid-column: 1 / -1;
+      border-left: 4px solid var(--rojo);
+      text-align: left;
+      padding: 22px;
+    }
+
+    .dato.destacado strong {
+      font-size: 20px;
+      letter-spacing: 0;
+      color: var(--azul-oscuro);
+    }
+
+    .tarjetas {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .tarjeta {
+      position: relative;
+      overflow: hidden;
+      padding: 32px;
+      border: 1px solid var(--borde);
+      border-radius: 18px;
+      background: white;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 18px 40px #08295712;
+    }
+
+    .icono {
+      display: grid;
+      place-items: center;
+      width: 57px;
+      height: 57px;
+      border-radius: 15px;
+      color: var(--azul);
+      background: #eaf3ff;
+      font-family: monospace;
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .tarjeta:nth-child(2) .icono {
+      color: var(--rojo);
+      background: #fff0f2;
+    }
+
+    .tarjeta h3 {
+      margin: 22px 0 12px;
+      font-size: 21px;
+      color: var(--azul-oscuro);
+    }
+
+    .tarjeta p {
+      margin: 0;
+      color: var(--gris);
+      font-size: 15px;
+    }
+
+    .habilidades {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .habilidades span {
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: var(--fondo);
+      color: var(--gris);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .filosofia {
+      position: relative;
+      overflow: hidden;
+      padding: 55px;
+      border-radius: 24px;
+      color: white;
+      background: var(--azul-oscuro);
+    }
+
+    .filosofia::after {
+      content: "</>";
+      position: absolute;
+      right: 25px;
+      bottom: -65px;
+      color: #ffffff07;
+      font-family: monospace;
+      font-size: 240px;
+      font-weight: bold;
+      pointer-events: none;
+    }
+
+    .filosofia .titulo-pequeno { color: #8dcaff; }
+    .filosofia h2 { max-width: 750px; color: white; }
+    .filosofia p { position: relative; max-width: 680px; color: #d0def0; }
+
+    footer {
+      padding-block: 30px;
+      border-top: 1px solid var(--borde);
+      color: var(--gris);
+      font-size: 13px;
+    }
+
+    .pie {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .pie a {
+      color: var(--azul);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @keyframes moverCuadricula {
+      to { transform: translateY(52px); }
+    }
+
+    @keyframes girar {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes cubo3d {
+      from { transform: rotateX(-20deg) rotateY(0deg); }
+      to { transform: rotateX(340deg) rotateY(360deg); }
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* CELULARES Y TABLETAS */
+    @media (max-width: 850px) {
+      .hero-interior {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding-block: 60px;
+      }
+
+      .hero-texto { max-width: 650px; }
+      .visual { width: min(400px, 100%); margin: auto; }
+      .sobre-mi { grid-template-columns: 1fr; gap: 30px; }
+      .tarjetas { grid-template-columns: 1fr; }
+      section.contenido { padding-block: 60px; }
+    }
+
+    @media (max-width: 480px) {
+      nav { min-height: 72px; gap: 12px; }
+      .marca-nombre { display: none; }
+      .enlaces { gap: 15px; }
+      .enlaces a { font-size: 12px; }
+      h1 { letter-spacing: -1px; }
+      .hero-descripcion { font-size: 16px; }
+      .visual { min-height: 340px; }
+      .orbita { width: 265px; height: 265px; }
+      .orbita-secundaria { width: 205px; height: 205px; }
+      .tarjeta-flotante { padding: 10px 12px; font-size: 11px; }
+      .flotante-dos { right: 0; }
+      .filosofia { padding: 32px 25px; }
+      .pie { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .cubo { transform: rotateX(-20deg) rotateY(30deg); }
+    }
+  </style>
+</head>
+
+<body id="inicio">
+
+  <header>
+    <nav class="contenedor" aria-label="Navegación principal">
+      <a href="#inicio" class="marca" aria-label="Rodrigo Arce, inicio">
+        <span class="monograma">RA</span>
+        <span class="marca-nombre">Rodrigo Arce<span style="color:var(--rojo)">.</span></span>
+      </a>
+
+      <div class="enlaces">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#especialidades">Especialidades</a>
+        <a href="#vision">Mi visión</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="titulo-principal">
+      <div class="contenedor hero-interior">
+
+        <div class="hero-texto">
+          <div class="etiqueta">
+            <span class="punto" aria-hidden="true"></span>
+            Educación + Tecnología
+          </div>
+
+          <h1 id="titulo-principal">
+            Junior Rodrigo<br>
+            <span>Arce Campos.</span>
+          </h1>
+
+          <p class="hero-descripcion">
+            Soy docente de Informática Educativa del Tecnológico de
+            Costa Rica. Llevo <strong>22 años</strong> conectando la
+            educación con la informática, la programación y la creatividad.
+          </p>
+
+          <div class="botones">
+            <a href="#especialidades" class="boton boton-rojo">
+              Explorar mi experiencia ↗
+            </a>
+            <a href="#sobre-mi" class="boton boton-borde">
+              Conocerme
+            </a>
+          </div>
+        </div>
+
+        <div class="visual" aria-hidden="true">
+          <div class="orbita"></div>
+          <div class="orbita orbita-secundaria"></div>
+
+          <div class="escena">
+            <div class="cubo">
+              <div class="cara frente">3D</div>
+              <div class="cara atras">3D</div>
+              <div class="cara derecha">&lt;/&gt;</div>
+              <div class="cara izquierda">&lt;/&gt;</div>
+              <div class="cara arriba">RA</div>
+              <div class="cara abajo">RA</div>
+            </div>
+          </div>
+
+          <div class="tarjeta-flotante flotante-uno">
+            <span>&lt;/&gt;</span> Programación
+          </div>
+          <div class="tarjeta-flotante flotante-dos">
+            <span>◇</span> Diseño e impresión 3D
+          </div>
+          <div class="tarjeta-flotante flotante-tres">
+            <span>✦</span> 22 años de experiencia
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="franja" aria-hidden="true"></div>
+
+    <section id="sobre-mi" class="contenido">
+      <div class="contenedor sobre-mi">
+
+        <div>
+          <span class="titulo-pequeno">Sobre mí</span>
+          <h2>Enseñar, programar<br>y dar forma a las ideas.</h2>
+
+          <p>
+            Soy Junior Rodrigo Arce Campos, tengo 39 años y una
+            trayectoria de 22 años como docente y como informático.
+          </p>
+
+          <p>
+            Mi trabajo reúne la Informática Educativa con dos áreas
+            de especialización: la programación y el diseño para
+            impresión 3D.
+          </p>
+
+          <p>
+            Me interesa convertir las ideas en experiencias de aprendizaje:
+            comprender un problema, explorar soluciones y construir
+            algo que pueda verse, probarse y mejorarse.
+          </p>
+        </div>
+
+        <div class="estadisticas">
+          <div class="dato">
+            <strong>22</strong>
+            <span>Años como docente<br>e informático</span>
+          </div>
+
+          <div class="dato">
+            <strong>39</strong>
+            <span>Años de edad</span>
+          </div>
+
+          <div class="dato destacado">
+            <strong>Educación que se construye</strong>
+            <span>Del código a los objetos, de las ideas al aprendizaje.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="especialidades" class="contenido fondo-suave">
+      <div class="contenedor">
+        <span class="titulo-pequeno">Mi experiencia</span>
+        <h2>Tres áreas que se complementan.</h2>
+        <p class="introduccion">
+          La docencia da sentido a la tecnología. La programación
+          permite crear soluciones. El diseño 3D lleva las ideas
+          al mundo físico.
+        </p>
+
+        <div class="tarjetas">
+          <article class="tarjeta">
+            <div class="icono" aria-hidden="true">Aa</div>
+            <h3>Informática Educativa</h3>
+            <p>
+              Enseñanza de la tecnología como una herramienta para
+              comprender, experimentar y desarrollar nuevas habilidades.
+            </p>
+            <div class="habilidades">
+              <span>Docencia</span>
+              <span>Aprendizaje</span>
+              <span>Tecnología</span>
+            </div>
+          </article>
+
+          <article class="tarjeta">
+            <div class="icono" aria-hidden="true">&lt;/&gt;</div>
+            <h3>Programación</h3>
+            <p>
+              Desarrollo de soluciones mediante código, pensamiento
+              lógico y resolución de problemas, desde la idea inicial
+              hasta su funcionamiento.
+            </p>
+            <div class="habilidades">
+              <span>Código</span>
+              <span>Lógica</span>
+              <span>Soluciones</span>
+            </div>
+          </article>
+
+          <article class="tarjeta">
+            <div class="icono" aria-hidden="true">3D</div>
+            <h3>Diseño e impresión 3D</h3>
+            <p>
+              Diseño de modelos para impresión 3D, conectando
+              creatividad, forma y función para transformar
+              conceptos digitales en objetos.
+            </p>
+            <div class="habilidades">
+              <span>Modelado</span>
+              <span>Prototipos</span>
+              <span>Fabricación</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="vision" class="contenido">
+      <div class="contenedor">
+        <div class="filosofia">
+          <span class="titulo-pequeno">Mi visión</span>
+          <h2>Aprender creando.<br>Crecer compartiendo.</h2>
+          <p>
+            Un programa que funciona y un objeto que sale de una
+            impresora 3D son oportunidades para aprender. Mi propósito
+            es acercar esas posibilidades a la educación y ayudar
+            a que más ideas se conviertan en proyectos.
+          </p>
+          <a href="#inicio" class="boton boton-rojo" style="margin-top:15px">
+            Volver al inicio ↑
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="contenedor pie">
+      <span>
+        © <span id="anio">2026</span> Junior Rodrigo Arce Campos.
+      </span>
+      <span>Educación · Programación · Diseño 3D</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("anio").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
